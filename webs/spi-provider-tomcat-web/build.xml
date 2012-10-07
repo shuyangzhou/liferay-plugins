@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project name="spi-provider-tomcat-web" basedir="." default="deploy">
+	<import file="../build-common-web.xml" />
+
+	<target name="compile-java">
+		<copy todir="${javac.destdir}">
+			<fileset dir="${javac.srcdir}" excludes="**/*.java" />
+		</copy>
+
+		<path id="plugin-lib.classpath">
+			<fileset dir="docroot/WEB-INF/embedded-tomcat-lib" includes="*.jar" />
+			<fileset dir="docroot/WEB-INF/lib" includes="*.jar" />
+			<pathelement location="docroot/WEB-INF/classes" />
+		</path>
+
+		<javac
+			classpathref="${javac.classpathref}"
+			compiler="${javac.compiler}"
+			debug="${javac.debug}"
+			deprecation="${javac.deprecation}"
+			destdir="${javac.destdir}"
+			encoding="${javac.encoding}"
+			includeAntRuntime="false"
+			nowarn="${javac.nowarn}"
+			srcdir="${javac.srcdir}"
+		/>
+	</target>
+</project>

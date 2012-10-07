@@ -1,0 +1,7 @@
+Jar files in this folder is only for SPI process, not for this plugin.
+
+These jar files must not be included in plugin classpath, as they contain
+sensitive classes, for example, javax.servlet.http.*.
+
+According to Servlet Spec 2.3, section 9.7.2, most app servers take this as
+offending if they appear in web application classpath.
