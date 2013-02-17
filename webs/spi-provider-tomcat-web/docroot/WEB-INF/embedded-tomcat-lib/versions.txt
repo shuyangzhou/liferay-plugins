@@ -1,4 +1,4 @@
-ecj.jar, v3.7.2
-tomcat-embed-core.jar, v7.0.30
-tomcat-embed-jasper.jar, v7.0.30
-tomcat-embed-logging-juli.jar, v7.0.30
+ecj.jar, v4.2.1
+tomcat-embed-core.jar, v7.0.35
+tomcat-embed-jasper.jar, v7.0.35
+tomcat-embed-logging-juli.jar, v7.0.35
