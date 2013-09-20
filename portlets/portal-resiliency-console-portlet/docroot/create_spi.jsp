@@ -189,6 +189,13 @@ minSpareThreads=10</textarea>
 			</th>
 		</tr>
 		<tr>
+			<th>Override portal properties :</th>
+			<th>
+				<textarea cols="50" name="<%= renderResponse.getNamespace() %>overridePortalProperties" rows="5">portal.resiliency.enabled=false
+layout.parallel.render.enable=false</textarea>
+			</th>
+		</tr>
+		<tr>
 			<th></th>
 			<th><input type="submit" value="Submit" /></th>
 		</tr>

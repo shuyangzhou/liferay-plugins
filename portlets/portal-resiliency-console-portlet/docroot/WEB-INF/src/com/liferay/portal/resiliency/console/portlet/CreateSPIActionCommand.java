@@ -14,17 +14,24 @@
 
 package com.liferay.portal.resiliency.console.portlet;
 
+import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.nio.intraband.rpc.IntrabandRPCUtil;
 import com.liferay.portal.kernel.resiliency.mpi.MPIHelperUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPI;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.SPIProvider;
+import com.liferay.portal.kernel.resiliency.spi.remote.SystemPropertiesProcessCallable;
 import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.ActionCommand;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
@@ -69,6 +76,8 @@ public class CreateSPIActionCommand implements ActionCommand {
 			portletRequest, "shutdownTimeout");
 		String extraSettings = ParamUtil.getString(
 			portletRequest, "extraSettings");
+		String overridePortalProperties = ParamUtil.getString(
+			portletRequest, "overridePortalProperties");
 
 		if (debug) {
 			jvmArguments +=
@@ -94,6 +103,21 @@ public class CreateSPIActionCommand implements ActionCommand {
 			if (_log.isInfoEnabled()) {
 				_log.info("Created SPI : " + spi);
 			}
+
+			Properties properties = new Properties();
+
+			properties.load(new UnsyncStringReader(overridePortalProperties));
+
+			Map<String, String> propertiesMap = new HashMap<String, String>();
+
+			for (String name : properties.stringPropertyNames()) {
+				propertiesMap.put(
+					"portal:".concat(name), properties.getProperty(name));
+			}
+
+			IntrabandRPCUtil.execute(
+				spi.getRegistrationReference(),
+				new SystemPropertiesProcessCallable(propertiesMap));
 
 			spi.init();
 
