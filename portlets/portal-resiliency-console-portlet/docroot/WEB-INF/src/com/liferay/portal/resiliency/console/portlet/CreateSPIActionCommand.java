@@ -32,6 +32,7 @@ import com.liferay.util.bridges.mvc.ActionCommand;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
@@ -78,6 +79,10 @@ public class CreateSPIActionCommand implements ActionCommand {
 			portletRequest, "extraSettings");
 		String overridePortalProperties = ParamUtil.getString(
 			portletRequest, "overridePortalProperties");
+
+		TimeZone timeZone = TimeZone.getDefault();
+
+		jvmArguments += " -Duser.timezone=" + timeZone.getID();
 
 		if (debug) {
 			jvmArguments +=
