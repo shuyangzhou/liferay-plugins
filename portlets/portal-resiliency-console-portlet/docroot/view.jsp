@@ -14,10 +14,20 @@
  */
 --%>
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<%@ include file="/init.jsp" %>
 
-<portlet:defineObjects />
+<portlet:renderURL var="viewSummaryURL">
+	<portlet:param name="mvcPath" value="/view_summary.jsp" />
+</portlet:renderURL>
 
-##<% out.print("First"); %>    <% out.print("Last"); %>%%
+<p>
+	<a href="<%= viewSummaryURL %>">SPIProvider and SPI summary info.</a>
+</p>
 
-This is the <strong>Sample JSP Portlet</strong>. Use this as a quick way to include JSPs.
+<portlet:renderURL var="createURL">
+	<portlet:param name="mvcPath" value="/create_spi.jsp" />
+</portlet:renderURL>
+
+<p>
+	<a href="<%= createURL %>">Create a new SPI instance.</a>
+</p>
