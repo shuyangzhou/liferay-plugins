@@ -20,8 +20,6 @@
 page import="com.liferay.portal.kernel.resiliency.spi.SPI" %><%@
 page import="com.liferay.portal.kernel.resiliency.spi.agent.SPIAgentFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.resiliency.spi.provider.SPIProvider" %><%@
-page import="com.liferay.portal.kernel.util.PropsKeys" %><%@
-page import="com.liferay.portal.kernel.util.SystemProperties" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.model.Portlet" %><%@
 page import="com.liferay.portal.resiliency.console.portlet.PortletUtil" %>

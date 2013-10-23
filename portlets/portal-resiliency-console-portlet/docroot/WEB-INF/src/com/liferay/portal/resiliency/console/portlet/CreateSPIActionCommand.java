@@ -24,10 +24,13 @@ import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.SPIProvider;
 import com.liferay.portal.kernel.resiliency.spi.remote.SystemPropertiesProcessCallable;
 import com.liferay.portal.kernel.servlet.ServletContextPool;
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.ActionCommand;
+
+import java.io.File;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +68,6 @@ public class CreateSPIActionCommand implements ActionCommand {
 		int jpdaPort = ParamUtil.getInteger(portletRequest, "jpdaPort");
 		int connectorPort = ParamUtil.getInteger(
 			portletRequest, "connectorPort");
-		String baseDir = ParamUtil.getString(portletRequest, "baseDir");
 		String[] portletIds = ParamUtil.getParameterValues(
 			portletRequest, "corePortletIds");
 		String[] servletContextNames = ParamUtil.getParameterValues(
@@ -88,6 +90,16 @@ public class CreateSPIActionCommand implements ActionCommand {
 			jvmArguments +=
 				" -agentlib:jdwp=transport=dt_socket,address=" + jpdaPort +
 					",server=y,suspend=" + (suspend ? "y" : "n");
+		}
+
+		String baseDir = System.getProperty("java.io.tmpdir") + "/" + id;
+
+		File baseDirFile = new File(baseDir);
+
+		FileUtil.deltree(baseDirFile);
+
+		if (!baseDirFile.mkdirs()) {
+			throw new PortletException("Unable to create base dir " + baseDir);
 		}
 
 		SPIProvider spiProvider = MPIHelperUtil.getSPIProvider(spiProviderName);

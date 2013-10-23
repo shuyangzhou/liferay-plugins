@@ -112,11 +112,6 @@
 				// For non-tomcat flavor App Servers, ask user to input base folder
 		%>
 
-		<tr>
-			<th>Base directory :</th>
-			<th><input name="<%=renderResponse.getNamespace() %>baseDir" size="50" type="text" value="<%= SystemProperties.get(PropsKeys.LIFERAY_HOME) %>" /></th>
-		</tr>
-
 		<%
 			}
 			else {
