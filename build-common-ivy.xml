@@ -665,7 +665,7 @@ module.snapshot.url=${cdn.sonatype.url}/com/liferay/${bnd.Bundle-SymbolicName}/$
 									<ivy:resolve
 										conf="default,internal,provided"
 										file="@{ivy.xml.dir}/ivy.xml"
-										log="download-only"
+										log="${ivy.log.level}"
 										transitive="${plugin.ivy.resolve.transitive.dependencies}"
 									/>
 
@@ -680,12 +680,14 @@ module.snapshot.url=${cdn.sonatype.url}/com/liferay/${bnd.Bundle-SymbolicName}/$
 												overwriteMode="always"
 												pattern="@{ivy.xml.dir}/lib/[artifact].[ext]"
 												type="bundle,eclipse-plugin,jar,maven-plugin,orbit"
+												log="${ivy.log.level}"
 											/>
 
 											<ivy:retrieve
 												overwriteMode="always"
 												pattern="@{ivy.xml.dir}/lib/[artifact]-[type]s.[ext]"
 												type="source"
+												log="${ivy.log.level}"
 											/>
 										</then>
 										<else>
@@ -693,12 +695,14 @@ module.snapshot.url=${cdn.sonatype.url}/com/liferay/${bnd.Bundle-SymbolicName}/$
 												overwriteMode="always"
 												pattern="@{ivy.xml.dir}/docroot/WEB-INF/lib/[artifact].[ext]"
 												type="bundle,eclipse-plugin,jar,maven-plugin,orbit"
+												log="${ivy.log.level}"
 											/>
 
 											<ivy:retrieve
 												overwriteMode="always"
 												pattern="@{ivy.xml.dir}/docroot/WEB-INF/lib/[artifact]-[type]s.[ext]"
 												type="source"
+												log="${ivy.log.level}"
 											/>
 										</else>
 									</if>
@@ -722,7 +726,7 @@ module.snapshot.url=${cdn.sonatype.url}/com/liferay/${bnd.Bundle-SymbolicName}/$
 
 		<ivy:resolve
 			conf="default,provided"
-			log="download-only"
+			log="${ivy.log.level}"
 			transitive="${ivy.resolve.transitive.dependencies}"
 		/>
 
