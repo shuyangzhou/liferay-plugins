@@ -2616,16 +2616,6 @@ Please find a solution that does not require portal-impl.jar.
 
 			<mkdir dir="${module.findbugs.basedir}/findbugs-reports" />
 
-			<condition property="src.exists">
-				<available file="${module.findbugs.basedir}/src" />
-			</condition>
-			<condition property="web-inf.service.exists">
-				<available file="${module.findbugs.basedir}/docroot/WEB-INF/service" />
-			</condition>
-			<condition property="web-inf.src.exists">
-				<available file="${module.findbugs.basedir}/docroot/WEB-INF/src" />
-			</condition>
-
 			<path id="classpath.com.google.code.findbugs">
 				<fileset dir="${sdk.dir}/dependencies/com.google.code.findbugs/lib" includes="*.jar" />
 				<fileset dir="${findbugs.home}/lib" includes="findbugs-ant.jar" />
@@ -2642,10 +2632,10 @@ Please find a solution that does not require portal-impl.jar.
 				<auxClasspath refid="plugin.classpath" />
 				<auxClasspath refid="portal.classpath" />
 
-				<fileset dir="${module.findbugs.basedir}">
-					<include name="${module.findbugs.basedir}/src/**/*.java" if="src.exists" />
-					<include name="${module.findbugs.basedir}/docroot/WEB-INF/service/**/*.java" if="web-inf.service.exists" />
-					<include name="${module.findbugs.basedir}/docroot/WEB-INF/src/**/*.java" if="web-inf.src.exists" />
+				<fileset dir="${module.findbugs.basedir}" erroronmissingdir="false">
+					<include name="${module.findbugs.basedir}/src/**/*.java" />
+					<include name="${module.findbugs.basedir}/docroot/WEB-INF/service/**/*.java" />
+					<include name="${module.findbugs.basedir}/docroot/WEB-INF/src/**/*.java" />
 				</fileset>
 				<class location="${module.findbugs.basedir}" />
 			</findbugs>
