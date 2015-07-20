@@ -2606,11 +2606,11 @@ Please find a solution that does not require portal-impl.jar.
 					<mirrors-get
 						dest="${findbugs.download.parent.dir}/${findbugs.download.zip}"
 						src="${findbugs.download.url}"
-						/>
+					/>
 					<unzip
 						dest="${findbugs.download.parent.dir}"
 						src="${findbugs.download.parent.dir}/${findbugs.download.zip}"
-						/>
+					/>
 				</then>
 			</if>
 
@@ -3722,7 +3722,7 @@ for (String path : paths) {
 		<loop-macrodef-or-target
 			module.dirs="${plugins.includes.path}"
 			target.name="run-findbugs"
-			/>
+		/>
 	</target>
 
 	<target name="run-pmd">
